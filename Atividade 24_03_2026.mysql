@@ -1,0 +1,50 @@
+CREATE TABLE funcionarios(
+    id_funcionario INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    salario DECIMAL(10,2) NOT NULL,
+    departamento VARCHAR(100) NOT NULL,
+    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+INSERT INTO funcionarios (nome, salario, departamento) VALUES
+('Carlos', 3000.00, 'TI'),
+('Maria', 4500.00, 'RH'),
+('João', 5000.00, 'TI'),
+('Ana', 3500.00, 'Financeiro'),
+('Pedro', 2800.00, 'RH');
+
+SELECT * FROM funcionarios;
+
+SELECT * FROM funcionarios WHERE salario > 4000;
+
+SELECT nome, salario
+FROM funcionarios
+where salario > 4000 ;
+
+INSERT INTO funcionarios ( nome , salario , departamento )
+VALUES ("juliana" ,"1500", "TI") ;
+
+UPDATE funcionarios
+SET salario = 2500.00
+WHERE nome = 'juliana';
+
+SELECT * FROM funcionarios;
+
+UPDATE funcionarios
+SET salario = 3500.00
+WHERE nome = 'Carlos';
+
+SELECT * FROM funcionarios;
+
+UPDATE funcionarios
+SET salario = salario * 1.10
+WHERE departamento = 'RH';
+
+SELECT * FROM funcionarios;
+
+DELETE FROM funcionarios
+WHERE nome = "Pedro" and departamento = "RH";
+
+SELECT MAX(salario) AS maior_salario, MIN(salario) AS menor_salario
+FROM funcionarios;
