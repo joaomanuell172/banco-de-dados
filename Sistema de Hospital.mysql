@@ -1,4 +1,4 @@
--- 1. Criação da tabela Paciente
+
 CREATE TABLE Paciente (
     cpf VARCHAR(11) PRIMARY KEY,
     nome_completo VARCHAR(100) NOT NULL,
@@ -6,14 +6,13 @@ CREATE TABLE Paciente (
     telefone VARCHAR(15)
 );
 
--- 2. Criação da tabela Medico
+
 CREATE TABLE Medico (
     id_medico INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     especialidade VARCHAR(50) NOT NULL
 );
 
--- 3. Criação da tabela Consulta (Entidade Associativa)
 CREATE TABLE Consulta (
     id_consulta INT AUTO_INCREMENT PRIMARY KEY,
     cpf_paciente VARCHAR(11) NOT NULL,
@@ -21,7 +20,7 @@ CREATE TABLE Consulta (
     data_consulta DATETIME NOT NULL,
     diagnostico TEXT,
     
-    -- Restrições de Chave Estrangeira (Relacionamentos)
+
     CONSTRAINT fk_consulta_paciente 
         FOREIGN KEY (cpf_paciente) REFERENCES Paciente(cpf),
         
