@@ -1,0 +1,75 @@
+CREATE TABLE jogador (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    numero_camisa INT
+);
+
+DESCRIBE jogador;
+
+ALTER TABLE jogador 
+ADD COLUMN altura DECIMAL(3,2),
+ADD COLUMN data_de_nascimento DATE;
+
+DESCRIBE jogador;
+
+DROP TABLE jogador;
+
+SHOW TABLES;
+
+CREATE TABLE jogador (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    numero_camisa INT,
+    altura DECIMAL(3,2),
+    data_de_nascimento DATE
+);
+
+INSERT INTO jogador (nome, numero_camisa, altura, data_de_nascimento) VALUES
+('Pelé', 10, 1.73, '1940-10-23'),
+('Zico', 10, 1.72, '1953-03-03'),
+('Romário', 11, 1.67, '1966-01-29'),
+('Ronaldo', 9, 1.83, '1976-09-18'),
+('Ronaldinho', 10, 1.81, '1980-03-21'),
+('Neymar', 10, 1.75, '1992-02-05'),
+('Cafu', 2, 1.76, '1970-06-07'),
+('Roberto Carlos', 6, 1.68, '1973-04-10'),
+('Taffarel', 1, 1.83, '1966-05-08'),
+('Rivaldo', 10, 1.86, '1972-04-19');
+
+TRUNCATE TABLE jogador;
+
+ALTER TABLE jogador MODIFY numero_camisa VARCHAR(3);
+
+ALTER TABLE jogador ADD UNIQUE (numero_camisa);
+
+ALTER TABLE jogador CHANGE data_de_nascimento data_nsc DATE;
+
+INSERT INTO jogador (nome, numero_camisa, altura, data_nsc) VALUES
+('Pelé', '10', 1.73, '1940-10-23'),
+('Romário', '11', 1.67, '1966-01-29'),
+('Ronaldo', '9', 1.83, '1976-09-18'),
+('Cafu', '2', 1.76, '1970-06-07'),
+('Roberto Carlos', '6', 1.68, '1973-04-10'),
+('Taffarel', '1', 1.83, '1966-05-08'),
+('Kaká', '8', 1.85, '1982-04-22'),
+('Dida', '12', 1.95, '1973-10-07'),
+('Lucio', '3', 1.88, '1978-05-08'),
+('Aldair', '4', 1.83, '1965-11-30');
+
+
+CREATE TABLE time (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_time VARCHAR(100) NOT NULL,
+    estado VARCHAR(2)
+);
+
+ALTER TABLE jogador ADD COLUMN id_time INT;
+
+ALTER TABLE jogador 
+ADD CONSTRAINT fk_jogador_time 
+FOREIGN KEY (id_time) REFERENCES time(id);
+
+ALTER TABLE jogador DROP INDEX numero_camisa;
+
+-- Crie a regra: pode existir vários jogadores com o mesmo número mas que tenha que ser de times diferentes
+ALTER TABLE jogador ADD UNIQUE (id_time, numero_camisa);
