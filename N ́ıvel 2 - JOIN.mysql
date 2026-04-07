@@ -1,0 +1,55 @@
+USE sakila;
+
+SELECT 
+    r.rental_id, 
+    r.rental_date, 
+    c.first_name, 
+    c.last_name
+FROM rental AS r
+INNER JOIN customer AS c 
+    ON r.customer_id = c.customer_id;
+    
+    USE sakila;
+
+SELECT 
+    p.payment_id,
+    c.first_name, 
+    c.last_name, 
+    p.amount,
+    p.payment_date
+FROM payment AS p
+INNER JOIN customer AS c 
+    ON p.customer_id = c.customer_id;
+    
+    USE sakila;
+
+SELECT 
+    c.first_name, 
+    c.last_name, 
+    f.title AS filme_alugado,
+    r.rental_date
+FROM customer AS c
+INNER JOIN rental AS r ON c.customer_id = r.customer_id
+INNER JOIN inventory AS i ON r.inventory_id = i.inventory_id
+INNER JOIN film AS f ON i.film_id = f.film_id;
+
+USE sakila;
+
+SELECT 
+    s.first_name AS nome_funcionario, 
+    s.last_name AS sobrenome_funcionario, 
+    st.store_id AS id_loja,
+    a.address AS endereco_loja
+FROM staff AS s
+INNER JOIN store AS st ON s.store_id = st.store_id
+INNER JOIN address AS a ON st.address_id = a.address_id;
+
+USE sakila;
+
+SELECT 
+    f.title AS titulo_filme, 
+    c.name AS categoria
+FROM film AS f
+INNER JOIN film_category AS fc ON f.film_id = fc.film_id
+INNER JOIN category AS c ON fc.category_id = c.category_id
+ORDER BY f.title;
