@@ -1,0 +1,44 @@
+USE sakila;
+
+SELECT 
+    c.first_name, 
+    c.last_name, 
+    SUM(p.amount) AS total_gasto
+FROM customer c
+JOIN payment p ON c.customer_id = p.customer_id
+GROUP BY c.customer_id
+ORDER BY total_gasto DESC;
+
+SELECT 
+    f.title AS filme, 
+    COUNT(r.rental_id) AS total_alugueis
+FROM film f
+JOIN inventory i ON f.film_id = i.film_id
+JOIN rental r ON i.inventory_id = r.inventory_id
+GROUP BY f.film_id
+ORDER BY total_alugueis DESC;
+
+SELECT 
+    c.name AS categoria, 
+    COUNT(DISTINCT fc.film_id) AS total_filmes, 
+    COUNT(r.rental_id) AS total_alugueis
+FROM category c
+JOIN film_category fc ON c.category_id = fc.category_id
+JOIN inventory i ON fc.film_id = i.film_id
+JOIN rental r ON i.inventory_id = r.inventory_id
+GROUP BY c.name
+ORDER BY total_alugueis DESC;
+
+SELECT 
+    c.first_name, 
+    c.last_name, 
+    f.title AS filme, 
+    cat.name AS categoria, 
+    p.amount AS valor_pago
+FROM customer c
+JOIN rental r ON c.customer_id = r.customer_id
+JOIN payment p ON r.rental_id = p.rental_id
+JOIN inventory i ON r.inventory_id = i.inventory_id
+JOIN film f ON i.film_id = f.film_id
+JOIN film_category fc ON f.film_id = fc.film_id
+JOIN category cat ON fc.category_id = cat.category_id;
