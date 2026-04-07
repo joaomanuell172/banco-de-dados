@@ -1,0 +1,32 @@
+ USE sakila;
+
+SELECT active, COUNT(*) AS total
+FROM customer
+GROUP BY active;
+
+USE sakila;
+
+SELECT SUM(amount) AS valor_total_pagamentos
+FROM payment;
+
+USE sakila;
+
+SELECT AVG(amount) AS valor_medio_pagamento
+FROM payment;
+
+USE sakila;
+
+SELECT c.name AS categoria, COUNT(fc.film_id) AS total_filmes
+FROM category c
+JOIN film_category fc ON c.category_id = fc.category_id
+GROUP BY c.name
+ORDER BY total_filmes DESC;
+
+USE sakila;
+
+SELECT c.first_name, c.last_name, COUNT(r.rental_id) AS total_alugueis
+FROM customer c
+JOIN rental r ON c.customer_id = r.customer_id
+GROUP BY c.customer_id
+ORDER BY total_alugueis DESC
+LIMIT 1;
